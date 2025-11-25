@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Alunos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Alunos</h1>
+       
+        {% if alunos %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Idade</th>
+                    <th>Curso</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for aluno in alunos %}
+                <tr>
+                    <td>{{ aluno['id'] }}</td>
+                    <td>{{ aluno['nome'] }}</td>
+                    <td>{{ aluno['idade'] }}</td>
+                    <td>{{ aluno['curso'] }}</td>
+                    <td class="actions">
+                        <a href="{{ url_for('editar', id=aluno['id']) }}" class="btn btn-edit">Editar</a>
+                        <a href="{{ url_for('excluir', id=aluno['id']) }}" class="btn btn-delete"
+                           onclick="return confirm('Tem certeza que deseja excluir este aluno?')">Excluir</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p class="no-data">Nenhum aluno cadastrado.</p>
+        {% endif %}
+       
+        <div class="actions-container">
+            <a href="{{ url_for('cadastro') }}" class="btn btn-primary">Cadastrar Novo Aluno</a>
+        </div>
+    </div>
+</body>
+</html>
+
